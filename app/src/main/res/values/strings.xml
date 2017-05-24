@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GitHubUser</string>
+    <string name="search">Search</string>
+    <string name="enter_login">Enter login here...</string>
+    <string name="name">Name: %1$s</string>
+    <string name="email">E-mail: %1$s</string>
+    <string name="user_id">User ID: %1$d</string>
+    <string name="location">Location: %1$s</string>
+</resources>
