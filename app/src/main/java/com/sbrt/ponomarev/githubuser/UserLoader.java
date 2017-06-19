@@ -33,7 +33,11 @@ class UserLoader extends AsyncTaskLoader<User> {
     protected void onStartLoading() {
         super.onStartLoading();
 
-        if (takeContentChanged()) {
+        if (mCachedUser != null) {
+            deliverResult(mCachedUser);
+        }
+
+        if (mCachedUser == null || takeContentChanged()) {
             forceLoad();
         }
     }
