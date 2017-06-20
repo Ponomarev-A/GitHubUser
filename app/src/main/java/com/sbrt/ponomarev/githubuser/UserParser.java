@@ -27,28 +27,27 @@ class UserParser {
         mObjectMapper.registerModule(module);
     }
 
-    public static User parseUserInfo(String jsonString) {
+    static User parseUserInfo(String jsonString) {
 
+        User user = null;
         try {
-            User user = null;
             if (jsonString != null) {
                 user = mObjectMapper.readValue(jsonString, User.class);
             }
-            return user;
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            return user;
         }
-
-        return null;
     }
 
-    public static class UserDeserializer extends StdDeserializer<User> {
+    private static class UserDeserializer extends StdDeserializer<User> {
 
-        public UserDeserializer() {
+        UserDeserializer() {
             this(null);
         }
 
-        public UserDeserializer(Class<?> vc) {
+        UserDeserializer(Class<?> vc) {
             super(vc);
         }
 
@@ -56,12 +55,12 @@ class UserParser {
         public User deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
             JsonNode node = jp.getCodec().readTree(jp);
 
-            String name = node.get("name").asText();
-            String email = node.get("email").asText();
-            String location = node.get("location").asText();
-            Integer id = (Integer) node.get("id").getNumberValue();
+            String name = node.get("name").getTextValue();
+            String email = node.get("email").getTextValue();
+            String location = node.get("location").getTextValue();
+            long id = node.get("id").getLongValue();
 
-            return new User(name, email, id, location);
+            return new User(id, name, email, location);
         }
     }
 }
