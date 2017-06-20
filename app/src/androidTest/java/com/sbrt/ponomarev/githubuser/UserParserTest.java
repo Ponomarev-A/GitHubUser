@@ -2,6 +2,7 @@ package com.sbrt.ponomarev.githubuser;
 
 import com.sbrt.ponomarev.githubuser.utils.JsonFileRule;
 import com.sbrt.ponomarev.githubuser.utils.TestNameRule;
+import com.sbrt.ponomarev.githubuser.utils.UserRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -17,19 +18,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserParserTest {
 
-    private JsonFileRule jsonFile = new JsonFileRule();
+    private JsonFileRule mJsonFile = new JsonFileRule();
     private TestNameRule mTestNameRule = new TestNameRule();
+    private UserRule mUserRule = new UserRule();
 
     @Rule
     public TestRule rule = RuleChain
-            .outerRule(jsonFile)
+            .outerRule(mJsonFile)
+            .around(mUserRule)
             .around(mTestNameRule);
 
     @Test
     public void testParseUserInfo() throws Exception {
-        String jsonStr = jsonFile.getJsonStr();
+        String jsonStr = mJsonFile.getJsonStr();
 
-        User expected = jsonFile.getUser();
+        User expected = mUserRule.getUser();
         User actual = UserParser.parseUserInfo(jsonStr);
 
         assertThat(actual, is(expected));

@@ -3,10 +3,8 @@ package com.sbrt.ponomarev.githubuser.utils;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.util.Log;
-import com.sbrt.ponomarev.githubuser.User;
-import org.junit.rules.ExternalResource;
-
 import com.sbrt.ponomarev.githubuser.test.R;
+import org.junit.rules.ExternalResource;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -18,11 +16,6 @@ import java.util.Scanner;
 public class JsonFileRule extends ExternalResource {
 
     private static final String TAG = JsonFileRule.class.getSimpleName();
-
-    private static final String NAME = "Ivanov Ivan";
-    private static final String EMAIL = "example@mail.com";
-    private static final long USER_ID = 12345678L;
-    private static final String LOCATION = "USA";
 
     private Context mContext = InstrumentationRegistry.getContext();
     private String mJsonStr;
@@ -48,9 +41,5 @@ public class JsonFileRule extends ExternalResource {
 
     public String getJsonStr() {
         return mJsonStr;
-    }
-
-    public User getUser() {
-        return new User(USER_ID, NAME, EMAIL, LOCATION);
     }
 }

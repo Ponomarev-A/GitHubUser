@@ -3,6 +3,7 @@ package com.sbrt.ponomarev.githubuser;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.AsyncTaskLoader;
+import android.text.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,15 +45,33 @@ class UserLoader extends AsyncTaskLoader<User> {
 
     @Override
     public void deliverResult(User data) {
-        super.deliverResult(data);
+        if (isReset()) {
+            return;
+        }
+
         mCachedUser = data;
+
+        if (isStarted()) {
+            super.deliverResult(data);
+        }
+    }
+
+    @Override
+    protected void onReset() {
+        super.onReset();
+        mCachedUser = null;
     }
 
     @Override
     public User loadInBackground() {
-        String path = generatePath(mLogin);
-        String infoStr = loadUserInfoFromGitHub(path);
-        User user = UserParser.parseUserInfo(infoStr);
+        User user = null;
+
+        if (!TextUtils.isEmpty(mLogin)) {
+            String path = generatePath(mLogin);
+            String infoStr = loadUserInfoFromGitHub(path);
+            user = UserParser.parseUserInfo(infoStr);
+        }
+
         return user;
     }
 
