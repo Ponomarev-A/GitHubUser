@@ -5,32 +5,33 @@ package com.sbrt.ponomarev.githubuser;
  */
 
 public class User {
-    private long id;
-    private String name;
-    private String email;
-    private String location;
+
+    private long mId;
+    private String mName;
+    private String mEmail;
+    private String mLocation;
 
     public User(long id, String name, String email, String location) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.location = location;
+        this.mId = id;
+        this.mName = name;
+        this.mEmail = email;
+        this.mLocation = location;
     }
 
     public long getID() {
-        return id;
+        return mId;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public String getLocation() {
-        return location;
+        return mLocation;
     }
 
     @Override
@@ -40,19 +41,19 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        return location != null ? location.equals(user.location) : user.location == null;
+        if (mId != user.mId) return false;
+        if (mName != null ? !mName.equals(user.mName) : user.mName != null) return false;
+        if (mEmail != null ? !mEmail.equals(user.mEmail) : user.mEmail != null) return false;
+        return mLocation != null ? mLocation.equals(user.mLocation) : user.mLocation == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
+        int result = (int) (mId ^ (mId >>> 32));
+        result = 31 * result + (mName != null ? mName.hashCode() : 0);
+        result = 31 * result + (mEmail != null ? mEmail.hashCode() : 0);
+        result = 31 * result + (mLocation != null ? mLocation.hashCode() : 0);
         return result;
     }
 }
